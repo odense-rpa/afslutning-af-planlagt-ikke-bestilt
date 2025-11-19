@@ -6,7 +6,14 @@ readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
     "automation-server-client",
+    "odk-tools",
+    "kmd-nexus-client",
+    "nexus-database-client",
+    "openpyxl",
 ]
 
 [tool.uv.sources]
 automation-server-client = { git = "https://github.com/odense-rpa/automation-server-client.git", tag = "v0.2.1" }
+odk-tools = { git = "https://github.com/odense-rpa/odk-tools.git", rev = "master" }
+kmd-nexus-client = { git = "https://github.com/odense-rpa/nexus-client.git", rev = "main" }
+nexus-database-client = { git = "https://github.com/odense-rpa/nexus-database-client.git", rev = "main" }
