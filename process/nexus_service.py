@@ -130,7 +130,7 @@ class NexusService:
         if leverandør is None:
             return
 
-        organisation = self.nexus.hent_fra_reference(leverandør)
+        organisation = self.nexus.organisationer.hent_organisation_ved_navn(leverandør)
 
         if organisation is None:
             return
@@ -158,9 +158,10 @@ class NexusService:
                     handling = [action for action in bestilling["actions"] if action.get("name") == "Planlagt"]
 
                     if len(handling) == 0:
-                        break
-
+                        break                    
+                    
                     udfør_handling = handling[0]
+                    # Put uden content, da empty json object resulterer i 400 bad request
                     self.nexus.nexus_client.client.put(
                         udfør_handling["_links"]["executeAction"]["href"],
                         content=""
