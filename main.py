@@ -52,7 +52,7 @@ async def populate_queue(workqueue: Workqueue):
 
 
 async def process_workqueue(workqueue: Workqueue):
-    logger = logging.getLogger(__name__)    
+    logger = logging.getLogger(__name__)  
 
     for item in workqueue:
         with item:

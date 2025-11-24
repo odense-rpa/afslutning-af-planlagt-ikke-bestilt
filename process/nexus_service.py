@@ -57,10 +57,14 @@ class NexusService:
                 paragraf = felter.get("paragraph")
 
                 # Eller check om paragraf + lovgivning er relevant
-                if paragraf is None or paragraf["paragraph"]["name"] not in paragraffer:
-                    continue
+                if paragraf is None or paragraf["paragraph"]["section"] not in paragraffer:
+                    continue                
+
+                forventet_lovgivning = paragraffer[paragraf["paragraph"]["section"]]
+                lovgivning = paragraf["paragraph"]["name"]
                 
-                if paragraffer[paragraf["paragraph"]["name"]] != paragraf["paragraph"]["section"]:
+                # Check if expected section is contained in actual section (case-insensitive)
+                if forventet_lovgivning.lower() != lovgivning.lower():
                     continue
 
             relevante_indsatser.append(indsats)
