@@ -80,8 +80,9 @@ class NexusService:
                 # continue, fordi der ikke er en leverandør bestilling at håndtere derefter
                 continue
             
-            self.afslut_kompleks_indsats(indsats=indsats)
-            self.planlæg_bestilling_i_leverandør_kalender(indsats=indsats)
+            # Vigtigt at indsats returneres, da orderGrantId opdateres ved bestilling
+            afsluttet_indsats = self.afslut_kompleks_indsats(indsats=indsats)
+            self.planlæg_bestilling_i_leverandør_kalender(indsats=afsluttet_indsats)
 
 
     def afslut_kompleks_indsats(self, indsats: dict):
@@ -122,6 +123,7 @@ class NexusService:
                 self.tracker.track_task(process_name=proces_navn)
                 indsats = self.nexus.hent_fra_reference(indsats)
 
+        return indsats
 
     def planlæg_bestilling_i_leverandør_kalender(self, indsats: dict):
         felter = self.nexus.indsatser.hent_indsats_elementer(indsats=indsats)
